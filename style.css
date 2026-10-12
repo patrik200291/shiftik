@@ -1,0 +1,652 @@
+/* ZÁKLADNÍ RESET A STYLY */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: #050b14;
+  color: #f8fafc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 12px;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 420px;
+  background-color: #0b1329;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  height: 840px;
+  max-height: 90vh;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #1e293b;
+}
+
+/* HLAVIČKA */
+.app-header {
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0f172a;
+  border-bottom: 1px solid #1e293b;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 18px;
+  color: #38bdf8;
+}
+
+.notification-icon {
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* PŘEPÍNÁNÍ STRÁNEK */
+.app-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  padding-bottom: 80px; /* místo pro dolní menu */
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+/* SPODNÍ NAVIGACE */
+.nav-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: #0f172a;
+  border-top: 1px solid #1e293b;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 100;
+}
+
+.nav-item {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #64748b;
+  cursor: pointer;
+  flex: 1;
+  font-size: 11px;
+}
+
+.nav-item .nav-icon {
+  font-size: 18px;
+}
+
+.nav-item.active {
+  color: #38bdf8;
+}
+
+/* KARTY A SEKCE */
+.card {
+  background: #111c38;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 14px;
+  border: 1px solid #1e293b;
+}
+
+.today-card {
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+  border-radius: 14px;
+  padding: 16px;
+  color: white;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+}
+
+.date-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.8;
+  margin-bottom: 6px;
+}
+
+.shift-badge {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.shift-time {
+  font-size: 14px;
+  font-weight: 400;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #94a3b8;
+  margin: 16px 0 8px 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* TÝDENNÍ MŘÍŽKA */
+.weekly-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.weekly-day-box {
+  background: #111c38;
+  border: 1px solid #1e293b;
+  border-radius: 10px;
+  padding: 8px 4px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.weekly-day-box.is-today {
+  border-color: #38bdf8;
+  background: #172554;
+}
+
+.weekly-day-name {
+  font-size: 10px;
+  color: #64748b;
+  display: block;
+}
+
+.weekly-day-num {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 2px 0 6px 0;
+  display: block;
+}
+
+.weekly-shift-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 4px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.weekly-shift-badge.ranni { background: #ca8a04; color: white; }
+.weekly-shift-badge.nocni { background: #2563eb; color: white; }
+.weekly-shift-badge.volno { background: #334155; color: #94a3b8; }
+.weekly-shift-badge.dovolenka { background: #16a34a; color: white; }
+.weekly-shift-badge.prescas { background: #9333ea; color: white; }
+.weekly-shift-badge.nemoc { background: #dc2626; color: white; }
+
+.weekly-note-dot {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 8px;
+}
+
+/* STATISTIKY */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.stat-box {
+  background: #111c38;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 18px;
+  font-weight: 700;
+  color: #f8fafc;
+  display: block;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 2px;
+  display: block;
+}
+
+/* VÝDĚLEK KARTA */
+.salary-summary-card {
+  background: linear-gradient(135deg, #1e1b4b, #311042);
+  border: 1px solid #4c1d95;
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+}
+
+.salary-label {
+  font-size: 12px;
+  color: #c4b5fd;
+  text-transform: uppercase;
+}
+
+.salary-value {
+  font-size: 26px;
+  font-weight: 800;
+  color: #a78bfa;
+  margin: 6px 0;
+}
+
+.salary-subtext {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+/* KALENDÁŘ */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.month-title {
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.month-subtitle {
+  font-size: 11px;
+  color: #64748b;
+  text-align: center;
+}
+
+.month-btn {
+  background: #111c38;
+  border: 1px solid #1e293b;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.weekdays-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.cal-day {
+  background: #111c38;
+  border: 1px solid #1e293b;
+  border-radius: 10px;
+  min-height: 56px;
+  padding: 6px 2px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: #f8fafc;
+}
+
+.cal-day.empty {
+  background: transparent;
+  border: none;
+  cursor: default;
+}
+
+/* Zřetelné odlišení dnešního dne (jasná a úderná modrá, která nesplývá se směnami) */
+.cal-day.is-today-cal {
+  background: #0284c7 !important; /* Výrazná azurová/modrá */
+  border: 2px solid #38bdf8 !important;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+.cal-day.is-today-cal .day-num {
+  font-weight: 900;
+  color: #ffffff;
+  font-size: 15px;
+}
+
+.cal-day.is-today-cal .shift-code {
+  color: #f0fdf4;
+  font-weight: 900;
+}
+
+/* Barevné rozlišení směn podle typu */
+.cal-day.ranni { background: rgba(202, 138, 4, 0.2); border-color: #ca8a04; }
+.cal-day.ranni .shift-code { color: #fde047; }
+
+.cal-day.nocni { background: rgba(37, 99, 235, 0.2); border-color: #2563eb; }
+.cal-day.nocni .shift-code { color: #93c5fd; }
+
+.cal-day.dovolenka { background: rgba(22, 163, 74, 0.2); border-color: #16a34a; }
+.cal-day.dovolenka .shift-code { color: #4ade80; }
+
+.cal-day.volno { opacity: 0.7; }
+.cal-day.volno .shift-code { color: #94a3b8; }
+
+/* Státní svátek (CZ) - výrazné červené ohraničení jako na 2. obrázku */
+.cal-day.is-holiday {
+  border: 2px dashed #f87171 !important;
+  background: rgba(239, 68, 68, 0.15);
+}
+.cal-day.is-holiday .shift-code {
+  color: #fca5a5;
+  font-weight: 900;
+}
+
+.note-dot {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 7px;
+}
+
+/* MZDA STRÁNKA */
+.salary-card-dark {
+  background: #111c38;
+  border: 1px solid #1e293b;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.big-salary-value {
+  font-size: 32px;
+  font-weight: 800;
+  color: #38bdf8;
+  margin: 6px 0 2px 0;
+}
+
+.salary-month-tag {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 16px;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #1e293b;
+  margin: 16px 0;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 10px;
+  color: #94a3b8;
+}
+
+.detail-row strong {
+  color: #f8fafc;
+}
+
+.highlight-blue { color: #38bdf8 !important; }
+.highlight-green { color: #4ade80 !important; }
+
+/* NASTAVENÍ */
+.settings-card .form-group {
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.settings-card label {
+  font-size: 13px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.settings-card input {
+  width: 100%;
+  padding: 10px 12px;
+  background: #0b1329;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  color: #f8fafc;
+  font-size: 15px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.settings-card input:focus {
+  border-color: #38bdf8;
+}
+
+.settings-heading {
+  font-size: 15px;
+  font-weight: 600;
+  color: #f8fafc;
+  margin-bottom: 12px;
+}
+
+.primary-btn {
+  width: 100%;
+  background: #38bdf8;
+  color: #0b1329;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.danger-btn {
+  width: 100%;
+  background: #7f1d1d;
+  color: #fca5a5;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.muted-text {
+  font-size: 13px;
+  color: #94a3b8;
+  margin-bottom: 4px;
+}
+
+.muted-text.small {
+  font-size: 11px;
+  color: #64748b;
+}
+
+.app-version-card {
+  text-align: center;
+  font-size: 12px;
+  color: #64748b;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* MODÁLNÍ OKNO */
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(5, 11, 20, 0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  padding: 20px;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-box {
+  background: #111c38;
+  border: 1px solid #1e293b;
+  border-radius: 16px;
+  padding: 20px;
+  width: 100%;
+  max-width: 340px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.modal-box h3 {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.modal-current-shift {
+  font-size: 13px;
+  color: #38bdf8;
+  margin-bottom: 12px;
+}
+
+.modal-help {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 6px;
+}
+
+.modal-box textarea {
+  width: 100%;
+  height: 64px;
+  background: #0b1329;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 8px;
+  color: white;
+  font-size: 13px;
+  resize: none;
+  margin-bottom: 10px;
+  outline: none;
+}
+
+.modal-btn {
+  width: 100%;
+  padding: 9px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  margin-bottom: 6px;
+  text-align: left;
+  padding-left: 12px;
+}
+
+.btn-vacation { background: #14532d; color: #4ade80; }
+.btn-overtime { background: #581c87; color: #d8b4fe; }
+.btn-sick { background: #7f1d1d; color: #fca5a5; }
+.btn-reset { background: #334155; color: #cbd5e1; }
+.btn-close { background: #1e293b; color: #94a3b8; text-align: center; }
+
+/* TOAST */
+.toast {
+  position: absolute;
+  bottom: 76px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #38bdf8;
+  color: #0b1329;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  z-index: 300;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Přesčas a nemoc/lékař – dny jsou v kalendáři vidět */
+.cal-day.prescas { background: rgba(147, 51, 234, 0.25); border-color: #9333ea; }
+.cal-day.prescas .shift-code { color: #d8b4fe; }
+.cal-day.nemoc { background: rgba(220, 38, 38, 0.25); border-color: #dc2626; }
+.cal-day.nemoc .shift-code { color: #fca5a5; }
+.cal-day .shift-code { font-size: 11px; font-weight: 700; }
+.month-note-item { font-size: 12px; color: #cbd5e1; margin-top: 6px; }
+
+.toast { position: fixed; }
+
+/* Mobil: aplikace přes celou obrazovku */
+@media (max-width: 480px) {
+  body { padding: 0; align-items: stretch; }
+  .app-container { max-width: none; height: 100dvh; max-height: none; border-radius: 0; border: none; }
+}
+/* Zvýraznění samotného jména */
+#nameday-today {
+  color: #ffb703; /* Teplá zlatavá/žlutá barva */
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+/* Styl pro celou kartičku svátku */
+.nameday-card {
+  background: linear-gradient(135deg, #1e293b, #0f172a); /* Jemný přechod do tmavší modré */
+  border-left: 3px solid #38bdf8; /* Světle modrý proužek na levém okraji */
+}
+
+/* Úprava textu uvnitř */
+.nameday-card #nameday-today {
+  color: #38bdf8; /* Ladící světle modrá barva pro jméno */
+}

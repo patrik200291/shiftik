@@ -288,7 +288,16 @@ function calculateMonthSalary(year, month) {
                + r.weekendBonuses + r.vacationPay;
   return r;
 }
- 
+
+// Vrátí objekt s českým i slovenským svátkem pro daný den
+function getBothNamedays(month, day) {
+  const key = `${month}-${day}`;
+  return {
+    cz: czNamedays[key] || "Žádný svátek",
+    sk: skNamedays[key] || "Žádný svátek"
+  };
+}
+
 window.openDayModal = function(key) {
   selectedDateKey = key;
   const date = getDateFromKey(key);
@@ -296,12 +305,17 @@ window.openDayModal = function(key) {
   const title = document.getElementById('modal-date-title');
   const noteInput = document.getElementById('modal-note-input');
   const currentShift = document.getElementById('modal-current-shift');
- 
+  
   if (title) title.innerText = `${date.getDate()}. ${monthNames[date.getMonth()]} ${date.getFullYear()}`;
   if (noteInput) noteInput.value = notes[key] || '';
   if (currentShift) {
     const shift = getShiftForDate(date);
-    currentShift.innerText = `${shift.name} • ${shift.time}`;
+    
+    // Zjištění obou svátků pro kliknutý den
+    const namedays = getBothNamedays(date.getMonth() + 1, date.getDate());
+    
+    // Výpis do modálního okna
+    currentShift.innerText = `${shift.name} • ${shift.time}\n🇨🇿 CZ: ${namedays.cz} | 🇸🇰 SK: ${namedays.sk}`;
   }
   if (modal) modal.classList.add('active');
 };
@@ -391,8 +405,16 @@ function updateHomeData() {
   const stats = calculateMonthSalary(today.getFullYear(), today.getMonth());
   setText('stats-shifts', `${stats.shifts} směn`);
   setText('stats-hours', `${stats.hours} h`);
+
+  // Zde se automaticky doplní dnešní CZ a SK svátky
+  const todayNamedays = getBothNamedays(today.getMonth() + 1, today.getDate());
+  const czEl = document.getElementById('nameday-cz');
+  if (czEl) czEl.innerText = todayNamedays.cz;
+
+  const skEl = document.getElementById('nameday-sk');
+  if (skEl) skEl.innerText = todayNamedays.sk;
 }
- 
+
 function renderMonthNotes() {
   const card = document.getElementById('month-notes-card');
   const list = document.getElementById('month-notes-list');
